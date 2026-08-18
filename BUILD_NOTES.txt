@@ -1,0 +1,31 @@
+PERSONAL OBB TOOL - ANDROID 14 FIXED
+
+Target:
+- Android 14 / API 34+
+- compileSdk 35
+- targetSdk 35
+- minSdk 24
+- ABIs: arm64-v8a + x86_64 (Chaquopy 17 / Python 3.13 supported 64-bit ABIs)
+
+Important:
+- This project uses Chaquopy to embed the Python processing engine.
+- Open the ROOT folder PersonalOBBToolAndroid, not the app folder.
+- The app module is app/.
+- MainActivity.java is already corrected for Android Base64 and Java compilation issues.
+- Python source is under app/src/main/python/.
+
+If your IDE does not support the Chaquopy Gradle plugin, this project cannot be built there as-is. Use an IDE/Gradle environment which supports the plugin, or port the Python engine to Java/native code.
+
+
+AIDE compatibility patch:
+- MainActivity no longer imports Chaquopy Java classes directly.
+- Chaquopy is loaded through reflection so editors which cannot index the
+  Chaquopy classes don't report Python/PyObject as unknown Java types.
+- The Chaquopy Gradle plugin is still required at build time because the
+  Python engine must be packaged into the APK.
+- If AIDE cannot sync com.chaquo.python 17.0.0, use Android Studio; this
+  patch cannot remove that build-time requirement without porting Python.
+
+FIXED3 ABI patch:
+- Added x86_64 alongside arm64-v8a. This does not add 32-bit ARM support because Python 3.13 is 64-bit-only in Chaquopy.
+- minSdk remains 24 and targetSdk remains 35.
